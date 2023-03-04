@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Middleware\EnsureAdminRole;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'App\Http\Controllers\ProductController@index');
+Route::get('/login', function () {
+    return view('login');
 });
