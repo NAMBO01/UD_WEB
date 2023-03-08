@@ -106,7 +106,7 @@ class ProductController extends Controller
     {
     }
 
-    public function add_gio_hang($id_sp)
+    public function add_cart($id_sp)
     {
         // echo $id_sp;
         if (Session::has('gio_hang')) {
@@ -155,7 +155,7 @@ class ProductController extends Controller
         echo json_encode($gio_hang);
     }
 
-    function update_gio_hang($id_sp)
+    function update_cart($id_sp)
     {
         try {
             $so_luong = $_GET['so_luong'];
@@ -185,7 +185,7 @@ class ProductController extends Controller
     }
 
 
-    function xoa_item_gio_hang($id_sp)
+    function del_item_cart($id_sp)
     {
 
         if (Session::has('gio_hang')) {
@@ -212,7 +212,7 @@ class ProductController extends Controller
         }
     }
 
-    function xoa_gio_hang()
+    function del_cart()
     {
         if (Session::has('gio_hang')) {
             Session::forget('gio_hang');
