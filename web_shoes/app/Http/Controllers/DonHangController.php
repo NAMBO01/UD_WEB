@@ -50,18 +50,18 @@ class DonHangController extends Controller
     public function store(Request $request)
     {
     }
-    function chi_tiet_don_hang($id_dh)
+    function chi_tiet_don_hang($ma_don_hang)
     {
         $user_info = Session::get('user_info');
-       /* A query to get the order details. */
-        $ct_don_hang = DB::table('ss_don_hang')
-            ->select(DB::raw('ma_don_hang,ten_trang_thai,trang_thai_moi,tong_tien'))
-            ->join('ss_ct_don_hang', 'ss_ct_don_hang.ID_don_hang', 'ss_don_hang.ID')
-            ->join('ss_trang_thai', 'ss_trang_thai.id_don_hang', '=', 'ss_don_hang.ID')
-            ->join('loai_trang_thai', 'loai_trang_thai.id', '=', 'ss_trang_thai.trang_thai_moi')
-            ->where('ss_don_hang.ID', $id_dh)
-            ->get();
 
+        $ct_don_hang = DB::table('ss_don_hang')
+            ->select(DB::raw('ma_don_hang,ten_san_pham,ss_san_pham.don_gia,gioi_thieu'))
+            ->join('ss_thanh_vien', 'ss_thanh_vien.ID', '=', 'ss_don_hang.id_nguoi_dung')
+            ->join('ss_ct_don_hang', 'ss_ct_don_hang.ID_don_hang', 'ss_don_hang.ID')
+            ->join('ss_san_pham', 'ss_ct_don_hang.id_sp', 'ss_san_pham.ID')
+            ->where('ss_don_hang.ma_don_hang', $ma_don_hang)
+            ->where('id_nguoi_dung', $user_info->ID)
+            ->get();
         return view('chi_tiet_don_hang')
             ->with('user_info', $user_info)
             ->with('ct_don_hang', $ct_don_hang);

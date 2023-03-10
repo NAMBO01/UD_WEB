@@ -7,5 +7,5 @@
 @endif
 
 @section('main-content')
-@include('modules.mod_trang_chu')
+ @include('modules.mod_trang_chu')
 @stop

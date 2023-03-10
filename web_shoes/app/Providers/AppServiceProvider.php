@@ -28,16 +28,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $list_loai_sp = DB::table('ss_loai_san_pham')
-            ->where('id_loai_cha', 0)
-            ->get();
+        ->where('id_loai_cha', 0)
+        ->get();
 
         $list_loai_sp = json_decode(json_encode($list_loai_sp));
 
-        foreach ($list_loai_sp as $key => $loai_sp_cha) {
+        foreach($list_loai_sp as $key => $loai_sp_cha){
             // echo $loai_sp_cha->ID_loai_sp. " ";
             $list_ds_loai_con = DB::table('ss_loai_san_pham')
-                ->where('id_loai_cha', $loai_sp_cha->ID_loai_sp)
-                ->get();
+            ->where('id_loai_cha', $loai_sp_cha->ID_loai_sp)
+            ->get();
 
             $list_ds_loai_con = json_decode(json_encode($list_ds_loai_con));
 
@@ -52,4 +52,6 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo number_format($money); ?>";
         });
     }
+
+
 }
