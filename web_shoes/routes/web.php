@@ -19,8 +19,8 @@ Route::get('/contact', function () {
 Route::get('/product', function () {
     return view('production');
 });
-Route::get('/product-nike', 'App\Http\Controllers\NIKEController@index');
-Route::get('/product-jordan', 'App\Http\Controllers\SP_JordanController@index');
+// Route::get('/product-nike', 'App\Http\Controllers\NIKEController@index');
+// Route::get('/product-jordan', 'App\Http\Controllers\SP_JordanController@index');
 
 Route::get('/register', 'App\Http\Controllers\UserController@createNewAccount');
 

@@ -226,6 +226,7 @@ table tr th {
 
 .login-wrap {
     padding: 20px;
+    border: 2px;
 }
 
 .login-social-link {
@@ -5112,7 +5113,6 @@ span.customSelect.changed {
     text-align: center;
 }
 
-
 /* The dots/bullets/indicators */
 .dot {
     height: 15px;
@@ -5142,4 +5142,3 @@ span.customSelect.changed {
         opacity: 1;
     }
 }
-
