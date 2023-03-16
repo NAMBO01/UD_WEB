@@ -1982,3 +1982,6 @@ select.in-drop {
     font-size: 12px;
     cursor: pointer;
 }
+.btn__back {
+    background-color: #00c0f0;
+}

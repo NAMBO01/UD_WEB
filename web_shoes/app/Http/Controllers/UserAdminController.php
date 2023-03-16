@@ -13,15 +13,24 @@ class UserAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * Retrieves a list of users from the database and passes it to a view for display.
+     *
+     * @return Illuminate\Http\Response
+     */
     public function index()
     {
+        // Retrieve a list of users with their respective user types.
         $ds_khach_hang = DB::table('ss_thanh_vien')
             ->select(DB::raw('ss_thanh_vien.*,ss_thanh_vien.id,ss_loai_thanh_vien.ten_loai_user'))
             ->join('ss_loai_thanh_vien', 'ss_thanh_vien.id_loai_user', '=', 'ss_loai_thanh_vien.id')
             ->where('id_loai_user', '<', 5)
             ->get();
+
+        // Render the view, passing in the list of users.
         return view('page_admin.trang_ds_user')->with('ds_khach_hang', $ds_khach_hang);
     }
+
     function nhan_vien()
     {
         $ds_nhan_vien = DB::table('ss_thanh_vien')
@@ -115,10 +124,12 @@ class UserAdminController extends Controller
 
     public function update_nhan_vien(Request $request, $id)
     {
+        // Get the updated values from the request object
         $mat_khau = $request->get('mat_khau');
         $email = $request->get('email');
         $dien_thoai = $request->get('dien_thoai');
 
+        // Update the database record with the new values
         $result = DB::table('ss_thanh_vien')
             ->where('ID', $id)
             ->update([
@@ -126,7 +137,7 @@ class UserAdminController extends Controller
                 'email' => $email,
                 'dien_thoai' => $dien_thoai,
             ]);
-
+        // Redirect the user back to the employee management page with a success message
         return redirect('/admin/ql-nhan-vien')->with('NoticeSuccess', 'Cập nhật thông tin thành công');
     }
 
@@ -141,18 +152,24 @@ class UserAdminController extends Controller
 
         try {
             DB::table('ss_thanh_vien')->where('ID', $id)->delete();
+            // This returns a redirect response to the previous page with a success message.
             return redirect($_SERVER['HTTP_REFERER'])->withErrors('Xoá thành công ', 'NoticeDelete');
         } catch (Exception $e) {
+            // If an exception is caught during the deletion process, a redirect response is returned to the previous page with an error message.
             return redirect($_SERVER['HTTP_REFERER'])->withErrors('Bị lỗi trong quá trình xóa vui lòng thử lại: ' . $e, 'NoticeDelete');
         }
     }
     public function destroy_nhan_vien(Request $request, $id)
     {
-
         try {
+            // The delete method of the DB class is used to delete the nhan_vien record that matches the given $id.
             DB::table('ss_thanh_vien')->where('ID', $id)->delete();
+
+
+            // A redirect response is returned to the previous page with a success message.
             return redirect($_SERVER['HTTP_REFERER'])->withErrors('Xoá thành công ', 'NoticeDelete');
         } catch (Exception $e) {
+            // If an exception is caught during the deletion process, a redirect response is returned to the previous page with an error message.
             return redirect($_SERVER['HTTP_REFERER'])->withErrors('Bị lỗi trong quá trình xóa vui lòng thử lại: ' . $e, 'NoticeDelete');
         }
     }

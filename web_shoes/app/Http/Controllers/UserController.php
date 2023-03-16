@@ -43,13 +43,22 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:ss_thanh_vien,tai_khoan',
+            'email' => 'required|email|unique:ss_thanh_vien,email',
+            'password' => 'required|min:6',
+            'name' => 'required',
+            'date_of_birth' => 'required|date',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $username = $request->input('username');
         $password = $request->input('password');
         $email = $request->input('email');
         $name = $request->input('name');
         $date_of_birth = $request->input('date_of_birth');
-
         $user_new = (object)[];
         $user_new->username = $username;
         $user_new->password = $password;
@@ -66,10 +75,14 @@ class UserController extends Controller
                         "mat_khau" => md5($password),
                         "email" => $email,
                         "ngay_dang_ky" => $date_of_birth,
+                        "id_loai_user" => 1
                     ]
                 );
             usleep(10000);
         });
+
+
+
 
         $data_string_user = file_get_contents(resource_path('data_temp/users.json'));
         $list_user = json_decode($data_string_user);
