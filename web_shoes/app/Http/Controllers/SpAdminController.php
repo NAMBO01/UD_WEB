@@ -88,6 +88,8 @@ class SPAdminController extends Controller
         return redirect('/admin/ql-san-pham/')->with('NoticeSuccess', 'Thêm sản phẩm mới thành công');
     }
 
+
+
     /**
      * Display the specified resource.
      *

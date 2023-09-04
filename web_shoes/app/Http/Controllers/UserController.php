@@ -75,7 +75,7 @@ class UserController extends Controller
                         "mat_khau" => md5($password),
                         "email" => $email,
                         "ngay_dang_ky" => $date_of_birth,
-                        "id_loai_user" => 1
+                        "id_loai_user" => 1,
                     ]
                 );
             usleep(10000);

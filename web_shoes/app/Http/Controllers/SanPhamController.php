@@ -167,7 +167,7 @@ class SanPhamController extends Controller
                 $tong_so_luong = 0;
                 foreach ($gio_hang as $sp) {
                     if ($sp->ID == $id_sp) {
-                        $sp->so_luong = $so_luong;
+                        (int) $sp->so_luong = $so_luong;
                     }
                     $tong_so_luong += $sp->so_luong;
                     $tong_tien += $sp->so_luong * $sp->gia_giam;

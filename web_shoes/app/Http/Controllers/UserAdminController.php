@@ -36,8 +36,9 @@ class UserAdminController extends Controller
         $ds_nhan_vien = DB::table('ss_thanh_vien')
             ->select(DB::raw('ss_thanh_vien.*,ss_thanh_vien.id,ss_loai_thanh_vien.ten_loai_user'))
             ->join('ss_loai_thanh_vien', 'ss_thanh_vien.id_loai_user', '=', 'ss_loai_thanh_vien.id')
-            ->where('id_loai_user', '>', 5)
+            ->whereBetween('id_loai_user', [6, PHP_INT_MAX])
             ->get();
+
         return view('page_admin.trang_ds_nhan_vien')->with('ds_nhan_vien', $ds_nhan_vien);
     }
     /**
